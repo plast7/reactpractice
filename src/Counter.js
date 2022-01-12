@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
 
-function Counter() {
-    const[inputs, setInputs] = useState({
-        number: 0,
-        count: 0,
-    });
-
+function Counter({inputs, setInputs}) {
     const {number, count} = inputs;
+
+    const isAvailableCount = isNaN(count);
 
     const onIncrease = (e) => {
         const {name} = e.target;
-        if(!isNaN(count)) {
+        if(!isAvailableCount) {
             setInputs({
                 ...inputs,
                 [name]: Number(number) + Number(count),
@@ -19,7 +16,7 @@ function Counter() {
     }
     const onDecrease = (e) => {
         const {name} = e.target;
-        if(!isNaN(count)) {
+        if(!isAvailableCount) {
             setInputs({
                 ...inputs,
                 [name]: Number(number) - Number(count),
@@ -37,8 +34,6 @@ function Counter() {
 
     return (
         <div>
-            <h1>{isNaN(count) && '존재하지 않는 숫자입니다'}</h1>
-            <h1>{number}</h1>
             <button name="number" onClick={onIncrease}>+</button>
             <button name="number" onClick={onDecrease}>-</button>
             <br />
