@@ -3,9 +3,11 @@ import React, {useState} from 'react';
 function Counter({inputs, setInputs}) {
     const {number, count} = inputs;
 
+    const isAvailableCount = isNaN(count);
+
     const onIncrease = (e) => {
         const {name} = e.target;
-        if(!isNaN(count)) {
+        if(!isAvailableCount) {
             setInputs({
                 ...inputs,
                 [name]: Number(number) + Number(count),
@@ -14,7 +16,7 @@ function Counter({inputs, setInputs}) {
     }
     const onDecrease = (e) => {
         const {name} = e.target;
-        if(!isNaN(count)) {
+        if(!isAvailableCount) {
             setInputs({
                 ...inputs,
                 [name]: Number(number) - Number(count),
