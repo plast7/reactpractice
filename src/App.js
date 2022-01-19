@@ -46,17 +46,29 @@ function App() {
             email,
         };
 
-        let myflag = false;
+        let samename = false;
 
         for(let i = 0; i < users.length; i++) {
             const curname = users[i].username;
-            const curmail = users[i].email;
-            if(curname === user.username && curmail === user.email) {
-                myflag = true;
+            if(curname === user.username) {
+                samename = true;
             }
         }
 
-        if(!myflag) {
+        let samemail = false;
+
+        for(let i = 0; i < users.length; i++) {
+            const curmail = users[i].email;
+            if(curmail === user.email) {
+                samemail = true;
+            }
+        }
+
+        if(samename) {
+            console.log('중복된 user가 존재합니다.')
+        } else if(samemail) {
+            console.log('중복된 mail이 존재합니다.')
+        } else {
             setUsers(users.concat(user));
 
             setInputs({
@@ -64,9 +76,6 @@ function App() {
                 email: '',
             });
             nextId.current += 1;
-        }
-        else {
-            console.log('중복된 user가 존재합니다.')
         }
     };
 
