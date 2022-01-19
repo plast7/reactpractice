@@ -45,13 +45,29 @@ function App() {
             username,
             email,
         };
-        setUsers(users.concat(user));
 
-        setInputs({
-            username: '',
-            email: '',
-        });
-        nextId.current += 1;
+        let myflag = false;
+
+        for(let i = 0; i < users.length; i++) {
+            const curname = users[i].username;
+            const curmail = users[i].email;
+            if(curname === user.username && curmail === user.email) {
+                myflag = true;
+            }
+        }
+
+        if(!myflag) {
+            setUsers(users.concat(user));
+
+            setInputs({
+                username: '',
+                email: '',
+            });
+            nextId.current += 1;
+        }
+        else {
+            console.log('중복된 user가 존재합니다.')
+        }
     };
 
     const onRemove = id => {
