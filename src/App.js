@@ -38,36 +38,59 @@ function App() {
         }
     ]);
 
-    const samename = useRef(false);
-    const samemail = useRef(false);
+    const [samename, setSamename] = useState(false);
+    const [samemail, setSamemail] = useState(false);
+
+    const changeSameName = () => {
+        setSamename(true)
+    }
+
+    const changeSameMail = () => {
+        setSamemail(true);
+    }
+
+    const resetSameName = () => {
+        setSamename(false);
+    };
+
+    const resetSameMail = () => {
+        setSamemail(false);
+    };
 
     const nextId = useRef(4);
     const onCreate = () => {
+        let isMultiple = false;
+
         const user = {
             id: nextId.current,
             username,
             email,
         };
 
-        samename.current = false;
+        resetSameName()
+        resetSameMail()
 
         for(let i = 0; i < users.length; i++) {
             const curname = users[i].username;
             if(curname === user.username) {
-                samename.current = true;
+                changeSameName();
+                isMultiple = true;
             }
         }
-
-        samemail.current = false;
 
         for(let i = 0; i < users.length; i++) {
             const curmail = users[i].email;
             if(curmail === user.email) {
-                samemail.current = true;
+                changeSameMail();
+                isMultiple = true;
             }
         }
 
-        if(!samename.current && !samemail.current) {
+        console.log('userlength :', users.length)
+        console.log('samename :', samename);
+        console.log('samemail :', samemail);
+
+        if(!isMultiple) {
             setUsers(users.concat(user));
 
             setInputs({
@@ -76,13 +99,6 @@ function App() {
             });
             nextId.current += 1;
         }
-        return (
-            <>
-                <h1>{samename.current && '중복된 user가 존재합니다.'}</h1>
-                <h1>{samemail.current && '중복된 mail이 존재합니다.'}</h1>
-            </>
-
-        );
     };
 
     const onRemove = id => {
@@ -106,8 +122,8 @@ function App() {
                 onCreate={onCreate}
             />
             <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
-            <h1>{samename.current && '중복된 user가 존재합니다.'}</h1>
-            <h1>{samemail.current && '중복된 mail이 존재합니다.'}</h1>
+            <h1>{samename && '중복된 user가 존재합니다.'}</h1>
+            <h1>{samemail && '중복된 mail이 존재합니다.'}</h1>
         </>
     );
 }
