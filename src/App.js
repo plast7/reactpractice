@@ -41,64 +41,68 @@ function App() {
     const [samename, setSamename] = useState(false);
     const [samemail, setSamemail] = useState(false);
 
-    const changeSameName = () => {
-        setSamename(true)
-    }
+    const trueName = () => {
+        setSamename(true);
+    };
 
-    const changeSameMail = () => {
-        setSamemail(true);
-    }
-
-    const resetSameName = () => {
+    const falseName = () => {
         setSamename(false);
     };
 
-    const resetSameMail = () => {
+    const trueMail = () => {
+        setSamemail(true);
+    };
+
+    const falseMail = () => {
         setSamemail(false);
     };
 
     const nextId = useRef(4);
     const onCreate = () => {
-        let isMultiple = false;
-
         const user = {
             id: nextId.current,
             username,
             email,
         };
 
-        resetSameName()
-        resetSameMail()
+        falseName();
+        falseMail();
 
         for(let i = 0; i < users.length; i++) {
             const curname = users[i].username;
             if(curname === user.username) {
-                changeSameName();
-                isMultiple = true;
+                trueName();
             }
         }
 
         for(let i = 0; i < users.length; i++) {
             const curmail = users[i].email;
             if(curmail === user.email) {
-                changeSameMail();
-                isMultiple = true;
+                trueMail();
             }
         }
 
-        console.log('userlength :', users.length)
-        console.log('samename :', samename);
-        console.log('samemail :', samemail);
-
-        if(!isMultiple) {
-            setUsers(users.concat(user));
-
-            setInputs({
-                username: '',
-                email: '',
-            });
-            nextId.current += 1;
+        for(let i = 0; i < users.length; i++) {
+            const curname = users[i].username;
+            if(curname === user.username) {
+                return;
+            }
         }
+
+        for(let i = 0; i < users.length; i++) {
+            const curmail = users[i].email;
+            if(curmail === user.email) {
+                return;
+            }
+        }
+
+        setUsers(users.concat(user));
+
+        setInputs({
+            username: '',
+            email: '',
+        });
+        nextId.current += 1;
     };
 
     const onRemove = id => {
