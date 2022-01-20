@@ -38,26 +38,43 @@ function App() {
         }
     ]);
 
-    const [samename, setSamename] = useState(false);
-    const [samemail, setSamemail] = useState(false);
-
-    const trueName = () => {
-        setSamename(true);
-    };
-
-    const falseName = () => {
-        setSamename(false);
-    };
-
-    const trueMail = () => {
-        setSamemail(true);
-    };
-
-    const falseMail = () => {
-        setSamemail(false);
-    };
+    const [checker, setChecker] = useState({
+        username: false,
+        mail: false
+    })
 
     const nextId = useRef(4);
+
+    const checkUsername = (user) => {
+        for(let i = 0; i < users.length; i++) {
+            const curname = users[i].username;
+            if(curname === user.username) {
+                setChecker((prev) => ({
+                    ...prev,
+                    username: true
+                }))
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    const checkMail = (user) => {
+        for(let i = 0; i < users.length; i++) {
+            const curmail = users[i].email;
+            if(curmail === user.email) {
+                setChecker((prev) => ({
+                    ...prev,
+                    mail: true
+                }))
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     const onCreate = () => {
         const user = {
             id: nextId.current,
@@ -65,36 +82,13 @@ function App() {
             email,
         };
 
-        falseName();
-        falseMail();
-
-        for(let i = 0; i < users.length; i++) {
-            const curname = users[i].username;
-            if(curname === user.username) {
-                trueName();
-            }
-        }
-
-        for(let i = 0; i < users.length; i++) {
-            const curmail = users[i].email;
-            if(curmail === user.email) {
-                trueMail();
-            }
-        }
-
-        for(let i = 0; i < users.length; i++) {
-            const curname = users[i].username;
-            if(curname === user.username) {
-                return;
-            }
-        }
-
-        for(let i = 0; i < users.length; i++) {
-            const curmail = users[i].email;
-            if(curmail === user.email) {
-                return;
-            }
-        }
+        setChecker(prev => ({
+            username: false,
+            mail: false
+        }))
+        
+        checkUsername(user)
+        if(checkMail(user) || checkUsername(user)) return;
 
         setUsers(users.concat(user));
 
@@ -126,8 +120,8 @@ function App() {
                 onCreate={onCreate}
             />
             <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
-            <h1>{samename && '중복된 user가 존재합니다.'}</h1>
-            <h1>{samemail && '중복된 mail이 존재합니다.'}</h1>
+            <h1>{checker.username && '중복된 user가 존재합니다.'}</h1>
+            <h1>{checker.mail && '중복된 mail이 존재합니다.'}</h1>
         </>
     );
 }
