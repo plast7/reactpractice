@@ -38,6 +38,9 @@ function App() {
         }
     ]);
 
+    const samename = useRef(false);
+    const samemail = useRef(false);
+
     const nextId = useRef(4);
     const onCreate = () => {
         const user = {
@@ -46,29 +49,25 @@ function App() {
             email,
         };
 
-        let samename = false;
+        samename.current = false;
 
         for(let i = 0; i < users.length; i++) {
             const curname = users[i].username;
             if(curname === user.username) {
-                samename = true;
+                samename.current = true;
             }
         }
 
-        let samemail = false;
+        samemail.current = false;
 
         for(let i = 0; i < users.length; i++) {
             const curmail = users[i].email;
             if(curmail === user.email) {
-                samemail = true;
+                samemail.current = true;
             }
         }
 
-        if(samename) {
-            console.log('중복된 user가 존재합니다.')
-        } else if(samemail) {
-            console.log('중복된 mail이 존재합니다.')
-        } else {
+        if(!samename.current && !samemail.current) {
             setUsers(users.concat(user));
 
             setInputs({
@@ -77,6 +76,13 @@ function App() {
             });
             nextId.current += 1;
         }
+        return (
+            <>
+                <h1>{samename.current && '중복된 user가 존재합니다.'}</h1>
+                <h1>{samemail.current && '중복된 mail이 존재합니다.'}</h1>
+            </>
+
+        );
     };
 
     const onRemove = id => {
@@ -100,6 +106,8 @@ function App() {
                 onCreate={onCreate}
             />
             <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
+            <h1>{samename.current && '중복된 user가 존재합니다.'}</h1>
+            <h1>{samemail.current && '중복된 mail이 존재합니다.'}</h1>
         </>
     );
 }
