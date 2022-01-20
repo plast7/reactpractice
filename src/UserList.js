@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 function User({user, onRemove, onToggle}) {
     useEffect(() => {
         return() => {
-            console.log(user);
         };
     });
 
