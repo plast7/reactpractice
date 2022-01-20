@@ -86,7 +86,8 @@ function App() {
             username: false,
             mail: false
         }))
-        
+
+
         checkUsername(user)
         if(checkMail(user) || checkUsername(user)) return;
 
