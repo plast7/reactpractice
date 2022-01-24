@@ -1,4 +1,7 @@
 import React, { useEffect } from 'react';
+import {IconButton} from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 function User({user, onRemove, onToggle}) {
     useEffect(() => {
@@ -15,7 +18,7 @@ function User({user, onRemove, onToggle}) {
                 }}
                 onClick={() => onToggle(user.id)}
             >{user.username}</b> <span>({user.email})</span>
-            <button onClick={() => onRemove(user.id)}>삭제</button>
+            <IconButton aria-label="delete" onClick={() => onRemove(user.id)}><DeleteIcon /></IconButton>
         </div>
     );
 }
