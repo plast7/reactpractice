@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import UserList from './UserList.js';
 import CreateUser from './CreateUser.js';
+import {getCookie, setCookie, deleteCookie} from './utils.js';
 
 function App() {
     const[inputs, setInputs] = useState({
@@ -17,7 +18,9 @@ function App() {
         });
     };
 
-    const [users, setUsers] = useState([
+    const [users, setUsers] = useState(
+        getCookie("helloworld") ? getCookie("helloworld") :
+        [
         {
             id: 1,
             username: 'velopert',
@@ -36,7 +39,10 @@ function App() {
             email: 'liz@example.com',
             active: false
         }
-    ]);
+    ]
+
+    );
+
 
     const [checker, setChecker] = useState({
         username: false,
@@ -61,9 +67,9 @@ function App() {
     }
 
     const checkMail = (user) => {
-        for(let i = 0; i < users.length; i++) {
+        for (let i = 0; i < users.length; i++) {
             const curmail = users[i].email;
-            if(curmail === user.email) {
+            if (curmail === user.email) {
                 setChecker((prev) => ({
                     ...prev,
                     mail: true
@@ -97,10 +103,26 @@ function App() {
             email: '',
         });
         nextId.current += 1;
+
+        const next_users = users.concat(user);
+
+        console.log('/users/')
+        console.log(users)
+        console.log('/cookie')
+        setCookie("helloworld", next_users, {})
+        console.log(getCookie("helloworld"))
     };
 
     const onRemove = id => {
         setUsers(users.filter(user => user.id !== id));
+        console.log('/users/')
+        console.log(users)
+        console.log('/cookie')
+
+        const next_users = users.filter(user => user.id !== id);
+
+        setCookie("helloworld", next_users, {})
+        console.log(getCookie("helloworld"))
     }
 
     const onToggle = id => {
@@ -109,6 +131,16 @@ function App() {
                 user.id === id ? {...user, active: !user.active} : user
             )
         );
+
+        const next_users = users.map(user =>
+            user.id === id ? {...user, active: !user.active} : user
+        );
+
+        console.log('/users/')
+        console.log(users)
+        console.log('/cookie')
+        setCookie("helloworld", next_users, {})
+        console.log(getCookie("helloworld"))
     };
 
     return (
