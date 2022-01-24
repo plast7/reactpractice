@@ -114,12 +114,11 @@ function App() {
     };
 
     const onRemove = id => {
-        setUsers(users.filter(user => user.id !== id));
+        const next_users = users.filter(user => user.id !== id);
+        setUsers(next_users);
         console.log('/users/')
         console.log(users)
         console.log('/cookie')
-
-        const next_users = users.filter(user => user.id !== id);
 
         setCookie("helloworld", next_users, {})
         console.log(getCookie("helloworld"))
