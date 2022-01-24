@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import UserList from './UserList.js';
 import CreateUser from './CreateUser.js';
-import {getCookie, setCookie, deleteCookie} from './utils.js';
+import {getCookie, setCookie} from './utils.js';
 
 function App() {
     const[inputs, setInputs] = useState({
