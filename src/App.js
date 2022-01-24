@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import UserList from './UserList.js';
 import CreateUser from './CreateUser.js';
+import {getCookie, setCookie, deleteCookie} from './utils.js';
 
 function App() {
     const[inputs, setInputs] = useState({
@@ -17,7 +18,9 @@ function App() {
         });
     };
 
-    const [users, setUsers] = useState([
+    const [users, setUsers] = useState(
+        getCookie("helloworld") ? getCookie("helloworld") :
+        [
         {
             id: 1,
             username: 'velopert',
@@ -36,14 +39,17 @@ function App() {
             email: 'liz@example.com',
             active: false
         }
-    ]);
+    ]
+
+    );
+
 
     const [checker, setChecker] = useState({
         username: false,
         mail: false
     })
 
-    const nextId = useRef(4);
+    const [nextId, setNextId] = useState(getCookie('hihihi') ? getCookie('hihihi') : 4)
 
     const checkUsername = (user) => {
         for(let i = 0; i < users.length; i++) {
@@ -61,9 +67,9 @@ function App() {
     }
 
     const checkMail = (user) => {
-        for(let i = 0; i < users.length; i++) {
+        for (let i = 0; i < users.length; i++) {
             const curmail = users[i].email;
-            if(curmail === user.email) {
+            if (curmail === user.email) {
                 setChecker((prev) => ({
                     ...prev,
                     mail: true
@@ -77,9 +83,10 @@ function App() {
 
     const onCreate = () => {
         const user = {
-            id: nextId.current,
+            id: nextId,
             username,
             email,
+            active: false
         };
 
         setChecker(prev => ({
@@ -90,25 +97,47 @@ function App() {
         checkUsername(user)
         if(checkMail(user) || checkUsername(user)) return;
 
-        setUsers(users.concat(user));
+        const next_users = users.concat(user);
+        setUsers(next_users);
 
         setInputs({
             username: '',
             email: '',
         });
-        nextId.current += 1;
+
+        const newnextId = nextId + 1
+        console.log('/users/')
+        console.log(users)
+        console.log('/cookie')
+        setCookie("helloworld", next_users, {})
+        setCookie("hihihi", newnextId, {})
+        setNextId(newnextId)
+        console.log(getCookie("helloworld"))
     };
 
     const onRemove = id => {
-        setUsers(users.filter(user => user.id !== id));
+        const next_users = users.filter(user => user.id !== id);
+        setUsers(next_users);
+        console.log('/users/')
+        console.log(users)
+        console.log('/cookie')
+
+        setCookie("helloworld", next_users, {})
+        console.log(getCookie("helloworld"))
     }
 
     const onToggle = id => {
-        setUsers(
-            users.map(user =>
-                user.id === id ? {...user, active: !user.active} : user
-            )
+        const next_users = users.map(user =>
+            user.id === id ? {...user, active: !user.active} : user
         );
+
+        setUsers(next_users);
+
+        console.log('/users/')
+        console.log(users)
+        console.log('/cookie')
+        setCookie("helloworld", next_users, {})
+        console.log(getCookie("helloworld"))
     };
 
     return (
