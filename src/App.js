@@ -49,7 +49,7 @@ function App() {
         mail: false
     })
 
-    const nextId = useRef(4);
+    const [nextId, setNextId] = useState(getCookie('hihihi') ? getCookie('hihihi') : 4)
 
     const checkUsername = (user) => {
         for(let i = 0; i < users.length; i++) {
@@ -83,9 +83,10 @@ function App() {
 
     const onCreate = () => {
         const user = {
-            id: nextId.current,
+            id: nextId,
             username,
             email,
+            active: false
         };
 
         setChecker(prev => ({
@@ -96,20 +97,21 @@ function App() {
         checkUsername(user)
         if(checkMail(user) || checkUsername(user)) return;
 
-        setUsers(users.concat(user));
+        const next_users = users.concat(user);
+        setUsers(next_users);
 
         setInputs({
             username: '',
             email: '',
         });
-        nextId.current += 1;
 
-        const next_users = users.concat(user);
-
+        const newnextId = nextId + 1
         console.log('/users/')
         console.log(users)
         console.log('/cookie')
         setCookie("helloworld", next_users, {})
+        setCookie("hihihi", newnextId, {})
+        setNextId(newnextId)
         console.log(getCookie("helloworld"))
     };
 
@@ -125,15 +127,11 @@ function App() {
     }
 
     const onToggle = id => {
-        setUsers(
-            users.map(user =>
-                user.id === id ? {...user, active: !user.active} : user
-            )
-        );
-
         const next_users = users.map(user =>
             user.id === id ? {...user, active: !user.active} : user
         );
+
+        setUsers(next_users);
 
         console.log('/users/')
         console.log(users)
