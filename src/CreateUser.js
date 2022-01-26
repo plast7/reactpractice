@@ -136,10 +136,10 @@ function CreateUser({ username, email, onChange, onCreate }) {
             <Box className={clsx(classes.inputGroup, classes.marginBottom20, classes.useflex)}>
                 <Box
                     className={clsx(classes.useflex, classes.squareField)}
-                    style={{height:'40px', width:'40px', borderRight:'none',}}>
+                    style={{height: '40px', width: '40px', borderRight: 'none',}}>
                     <PersonIcon
                         fontSize='small'
-                        style={{color : '#b3b3b3', margin:'auto',}}
+                        style={{color: '#b3b3b3', margin: 'auto',}}
                     />
                 </Box>
                 <Box>
@@ -157,10 +157,10 @@ function CreateUser({ username, email, onChange, onCreate }) {
             <Box className={clsx(classes.inputGroup, classes.marginBottom20, classes.useflex)}>
                 <Box
                     className={clsx(classes.useflex, classes.squareField)}
-                    style={{height: '40px', width:'40px', borderRight:'none',}}>
+                    style={{height: '40px', width: '40px', borderRight: 'none',}}>
                     <LockIcon
                         fontSize='small'
-                        style={{color : '#b3b3b3', margin:'auto'}}
+                        style={{color: '#b3b3b3', margin: 'auto'}}
                     />
                 </Box>
                 <Box>
@@ -177,14 +177,14 @@ function CreateUser({ username, email, onChange, onCreate }) {
             </Box>
             <Box className={classes.row}>
                 <Box className={clsx(classes.colMd6, classes.checkbox)}>
-                    <Grid className={classes.useflex} style={{alignItems:'center'}}>
+                    <Grid className={classes.useflex} style={{alignItems: 'center'}}>
                         <Checkbox
                             className={classes.checkRoot}
                             disableRipple
                             color="default"
-                            checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-                            icon={<span className={classes.icon} />}
-                            inputProps={{ 'aria-label': 'decorative checkbox' }}
+                            checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)}/>}
+                            icon={<span className={classes.icon}/>}
+                            inputProps={{'aria-label': 'decorative checkbox'}}
                         />
                         <Typography variant="h6" className={classes.loginKeep}>
                             로그인 상태 유지
@@ -202,7 +202,7 @@ function CreateUser({ username, email, onChange, onCreate }) {
                 </Box>
             </Box>
         </>
-    );
+    )
 }
 
 export default CreateUser;
