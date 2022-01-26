@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './App.css'
-import {Box, Button, Checkbox, Divider, Grid, makeStyles, TextField} from "@material-ui/core";
+import {Box, Button, Checkbox, Divider, Grid, makeStyles, TextField, Typography} from "@material-ui/core";
 import clsx from "clsx";
 import {blue, green, pink} from "@material-ui/core/colors";
 import PersonIcon from '@material-ui/icons/Person';
@@ -114,11 +114,16 @@ const useStyles = makeStyles(theme => ({
 
     textField: {
         fontSize: '20',
-        color: 'red',
+        width: '200px',
+        //color: 'red',
     },
 
     squareField: {
         border: '1px solid #ccc',
+    },
+
+    loginKeep: {
+        fontSize: '14px',
     },
 }))
 
@@ -131,44 +136,48 @@ function CreateUser({ username, email, onChange, onCreate }) {
             <Box className={clsx(classes.inputGroup, classes.marginBottom20, classes.useflex)}>
                 <Box
                     className={clsx(classes.useflex, classes.squareField)}
-                    style={{height:'34px', width:'34px',}}>
+                    style={{height:'40px', width:'40px', borderRight:'none',}}>
                     <PersonIcon
-                        style={{color : '#b3b3b3', margin:'auto'}}
+                        fontSize='small'
+                        style={{color : '#b3b3b3', margin:'auto',}}
                     />
                 </Box>
-                <Box className={classes.squareField}>
+                <Box>
                     <TextField
                         className={classes.textField}
                         name="username"
-                        label="계정명"
+                        placeholder="계정명"
                         onChange={onChange}
                         value={username}
-                        style={{marginTop:'-15px',}}
+                        variant="outlined"
+                        size="small"
                     />
                 </Box>
             </Box>
             <Box className={clsx(classes.inputGroup, classes.marginBottom20, classes.useflex)}>
                 <Box
                     className={clsx(classes.useflex, classes.squareField)}
-                    style={{height:'34px', width:'34px',}}>
+                    style={{height: '40px', width:'40px', borderRight:'none',}}>
                     <LockIcon
+                        fontSize='small'
                         style={{color : '#b3b3b3', margin:'auto'}}
                     />
                 </Box>
-                <Box className={classes.squareField}>
+                <Box>
                     <TextField
                         className={classes.textField}
                         name="email"
-                        label="이메일"
+                        placeholder="이메일"
                         onChange={onChange}
                         value={email}
-                        style={{marginTop:'-15px',}}
+                        variant="outlined"
+                        size="small"
                     />
                 </Box>
             </Box>
             <Box className={classes.row}>
                 <Box className={clsx(classes.colMd6, classes.checkbox)}>
-                    <Grid>
+                    <Grid className={classes.useflex} style={{alignItems:'center'}}>
                         <Checkbox
                             className={classes.checkRoot}
                             disableRipple
@@ -177,7 +186,9 @@ function CreateUser({ username, email, onChange, onCreate }) {
                             icon={<span className={classes.icon} />}
                             inputProps={{ 'aria-label': 'decorative checkbox' }}
                         />
-                        로그인 상태 유지
+                        <Typography variant="h6" className={classes.loginKeep}>
+                            로그인 상태 유지
+                        </Typography>
                     </Grid>
                 </Box>
                 <Box className={clsx(classes.colMd6, classes.useflex)}>

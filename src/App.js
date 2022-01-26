@@ -3,7 +3,7 @@ import styles from './App.css'
 import UserList from './UserList.js';
 import CreateUser from './CreateUser.js';
 import {getCookie, setCookie} from './utils.js';
-import {Box, Divider, FormControl, FormGroup, makeStyles, Typography} from "@material-ui/core";
+import {Box, Divider, FormControl, FormGroup, Link, makeStyles, Typography} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     regPage : {
@@ -186,12 +186,14 @@ function App() {
                     onCreate={onCreate}
                 />
                 <Divider className={classes.margin30}/>
-                <Typography>아이디나 비밀번호를 잊었을 때는, 여기를 눌러주세요.</Typography>
-                <Typography>회원 가입은 여기에서 할 수 있습니다.</Typography>
+                <Typography style={{fontSize:'14px'}}>아이디나 비밀번호를 잊었을 때는, <Link href="https://www.codetree.ai/">여기</Link>를 눌러주세요.</Typography>
+                <Typography style={{fontSize:'14px'}}>회원 가입은 <Link href="https://www.codetree.ai/">여기</Link>에서 할 수 있습니다.</Typography>
             </FormControl>
             <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
-            <Typography variant="h1">{checker.username && '중복된 user가 존재합니다.'}</Typography>
-            <Typography variant="h1">{checker.mail && '중복된 mail이 존재합니다.'}</Typography>
+            <Typography variant="h1" style={{ fontSize:'24px',}}
+            >{checker.username && '중복된 user가 존재합니다.'}</Typography>
+            <Typography variant="h1" style={{ fontSize:'24px',}}
+            >{checker.mail && '중복된 mail이 존재합니다.'}</Typography>
         </>
     );
 }
