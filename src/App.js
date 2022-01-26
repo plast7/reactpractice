@@ -1,7 +1,45 @@
 import React, {useRef, useState} from 'react';
+import styles from './App.css'
 import UserList from './UserList.js';
 import CreateUser from './CreateUser.js';
 import {getCookie, setCookie} from './utils.js';
+import {Box, Divider, FormControl, FormGroup, makeStyles, Typography} from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+    regPage : {
+        color: "#555",
+        padding: "30px",
+        background: "#fefefe",
+        border: "solid 1px #eee",
+        boxShadow: "0 0 3px #eee"
+    },
+
+    regHeader : {
+        color: '#555',
+        textAlign: 'center',
+        marginBottom: '35px',
+        borderBottom: 'solid 1px #eee',
+        '& h2': {
+            fontSize: '24px',
+            marginBottom: '15px'
+        }
+    },
+
+    marginBottom20 : {
+        marginBottom: '20px'
+    },
+
+    margin30 : {
+        marginBottom: '30px',
+        marginTop: '30px'
+    },
+
+    inputGroup : {
+        position: 'relative',
+        display: 'table',
+        borderCollapse: 'separate'
+    }
+}))
 
 function App() {
     const[inputs, setInputs] = useState({
@@ -106,24 +144,16 @@ function App() {
         });
 
         const newnextId = nextId + 1
-        console.log('/users/')
-        console.log(users)
-        console.log('/cookie')
         setCookie("helloworld", next_users, {})
         setCookie("hihihi", newnextId, {})
         setNextId(newnextId)
-        console.log(getCookie("helloworld"))
     };
 
     const onRemove = id => {
         const next_users = users.filter(user => user.id !== id);
         setUsers(next_users);
-        console.log('/users/')
-        console.log(users)
-        console.log('/cookie')
 
         setCookie("helloworld", next_users, {})
-        console.log(getCookie("helloworld"))
     }
 
     const onToggle = id => {
@@ -133,24 +163,35 @@ function App() {
 
         setUsers(next_users);
 
-        console.log('/users/')
-        console.log(users)
-        console.log('/cookie')
         setCookie("helloworld", next_users, {})
-        console.log(getCookie("helloworld"))
     };
+
+    const classes = useStyles();
 
     return (
         <>
-            <CreateUser
-                username={username}
-                email={email}
-                onChange={onChange}
-                onCreate={onCreate}
-            />
+            <FormControl className={classes.regPage}
+                  style={{
+                margin: '30px auto 0',
+                display: 'block',
+                width: '325px',
+            }}>
+                <Box className={classes.regHeader}>
+                    <Typography variant="h2">로그인</Typography>
+                </Box>
+                <CreateUser
+                    username={username}
+                    email={email}
+                    onChange={onChange}
+                    onCreate={onCreate}
+                />
+                <Divider className={classes.margin30}/>
+                <Typography>아이디나 비밀번호를 잊었을 때는, 여기를 눌러주세요.</Typography>
+                <Typography>회원 가입은 여기에서 할 수 있습니다.</Typography>
+            </FormControl>
             <UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
-            <h1>{checker.username && '중복된 user가 존재합니다.'}</h1>
-            <h1>{checker.mail && '중복된 mail이 존재합니다.'}</h1>
+            <Typography variant="h1">{checker.username && '중복된 user가 존재합니다.'}</Typography>
+            <Typography variant="h1">{checker.mail && '중복된 mail이 존재합니다.'}</Typography>
         </>
     );
 }

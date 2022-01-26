@@ -1,44 +1,65 @@
-.App {
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+margin-bottom-5, .margin-bottom-10, .margin-bottom-15, .margin-bottom-20, .margin-bottom-25, .margin-bottom-30, .margin-bottom-35, .margin-bottom-40, .margin-bottom-45, .margin-bottom-50, .margin-bottom-55, .margin-bottom-60 {
+  clear: both;
+}
+
+.input-group {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+}
+
+.reg-page {
+  color: #555;
+  padding: 30px;
+  background: #fefefe;
+  border: solid 1px #eee;
+  box-shadow: 0 0 3px #eee;
+}
+
+.reg-header {
+  color: #555;
   text-align: center;
+  margin-bottom: 35px;
+  border-bottom: solid 1px #eee;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.reg-header h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+* {
+  border-radius: 0 !important;
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+div {
+  display: block;
 }
 
-.App-link {
-  color: #61dafb;
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .purchase span {
+  font-family: 'Open Sans', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', '나눔바른고딕', '나눔고딕', '맑은고딕', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  color: #333;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
-.gray-box {
-  background: gray;
-  width: 64px;
-  height: 64px;
+h1, h2, h3, h4, h5, h6 {
+  color: #585f69;
+  margin-top: 5px;
+  text-shadow: none;
+  font-weight: normal;
+  font-family: 'Open Sans', sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 33px;
 }
